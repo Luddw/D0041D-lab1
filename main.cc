@@ -2,17 +2,18 @@
 
 int main(int argc, char** argv)
 {
-    printf("gamer1 \n");
-
-    List list;
-    printf("gamer \n");
+    List list;  
+ 
     std::string name = "MATTE";
-    Course kurs(name);
-    Node* node = new Node(name, kurs);
-    
-    list.Push(node);
+    std::string name2 = "POGRAMERING";   
+
+    list.Push(name, "M0001");
+    list.Push(name2, "D0001");
+
+    list.ApplyToCourse("bert", "MATTE");
+    list.ApplyToCourse("bert", "POGRAMERING");
+    list.ApplyToCourse("per", "MATTE");
     list.Print();
-    printf("hello benis \n");
     
     return 0;
 }

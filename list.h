@@ -23,16 +23,17 @@ private:
     Node * m_tail;
 public:
     List() { 
-        m_head = m_tail;
+        m_head = nullptr;
         m_tail = nullptr;
     };
 
-    void Push(Node *node) {
-        m_tail->next = node;
-        node->next = nullptr;
+    void Push(std::string name, std::string course_name) {
+        Node* node = new Node(name, Course(course_name));
+        printf("course node %s - %s added \n", name.c_str(), course_name.c_str());
+        node->next = m_head;
+        m_head = node;
     }
 
-    
     void Delete(const std::string &name) {
         Node *temp = m_head;
         while (temp != NULL)
@@ -47,16 +48,26 @@ public:
     }
 
     void Print() const {
-        Node *temp = m_head;
+        Node* temp = m_head;
         while (temp != NULL)
         {
-            printf("%s : \n", temp->name.c_str());
+            temp->course.Print();
+            temp = temp->next;
+        }
+    }
+
+    void ApplyToCourse(std::string student, std::string course_name) {
+        Node* temp = m_head;
+        while (temp != NULL)
+        {
+            if (temp->name == course_name)
+                temp->course.ApplyToCourse(student);
+ 
             temp = temp->next;
         }
         
         
     }
-
     ~List() {};
 
 
