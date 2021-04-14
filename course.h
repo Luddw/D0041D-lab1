@@ -33,6 +33,26 @@ public:
         printf("\n");
         
     };
+
+    void RemoveStudent(const std::string &student) {
+        std::stack<std::string> temp;
+        while (!m_students.empty())
+        {
+            if (m_students.top() == student) {
+                printf("%s removed from %s \n", student.c_str(), m_name.c_str());
+                m_students.pop();
+                continue;
+            }
+            
+            temp.push(m_students.top());
+            m_students.pop();
+            
+        }
+        m_students = temp;
+
+
+    };
+
     ~Course() {
         m_students.empty();
     };

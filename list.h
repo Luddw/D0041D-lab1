@@ -34,14 +34,15 @@ public:
         m_head = node;
     }
 
-    void Delete(const std::string &name) {
-        Node *temp = m_head;
+    void Delete(const std::string &student, const std::string &course) {
+        Node* temp = m_head;
         while (temp != NULL)
         {
-            if (temp->name == name) {
-                //stuff
+            if (temp->name == course){
+                printf("removing %s ...\n", student.c_str());
+                temp->course.RemoveStudent(student);
             }
-
+ 
             temp = temp->next;
         }
         
