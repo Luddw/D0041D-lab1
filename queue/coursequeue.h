@@ -1,17 +1,17 @@
 #pragma once
 #include <string>
-#include <stack>
+#include <queue>
 #include <string>
 
-class Course
+class CourseQueue
 {
 private:
     std::string m_name;
-    std::stack<std::string> m_students;
+    std::queue<std::string> m_students;
 public:
-    Course(/* args */) {};
-    Course(const std::string &name) : m_name(name){
-        std::stack<std::string> students;
+    CourseQueue(/* args */) {};
+    CourseQueue(const std::string &name) : m_name(name){
+        std::queue<std::string> students;
         m_students = students;
     };
 
@@ -21,13 +21,14 @@ public:
     };
 
     void Print() const {
-        std::stack<std::string> temp = m_students;
+        std::queue<std::string> temp = m_students;
         printf("%s : ", m_name.c_str());
 
         while (!temp.empty())
         {
-            printf("%s, ", temp.top().c_str());
+            printf("%s, ", temp.front().c_str());
             temp.pop();
+            
         }
 
         printf("\n");
@@ -35,16 +36,16 @@ public:
     };
 
     void RemoveStudent(const std::string &student) {
-        std::stack<std::string> temp;
+        std::queue<std::string> temp;
         while (!m_students.empty())
         {
-            if (m_students.top() == student) {
+            if (m_students.front() == student) {
                 printf("%s removed from %s \n", student.c_str(), m_name.c_str());
                 m_students.pop();
                 continue;
             }
             
-            temp.push(m_students.top());
+            temp.push(m_students.front());
             m_students.pop();
             
         }
@@ -53,7 +54,7 @@ public:
 
     };
 
-    ~Course() {
+    ~CourseQueue() {
         m_students.empty();
         
     };

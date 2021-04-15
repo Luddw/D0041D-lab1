@@ -1,19 +1,19 @@
 #pragma once
-#include "course.h"
+#include "coursestack.h"
 #include <string>
 
 
 struct Node
 {
     std::string name; 
-    Course course;
+    CourseStack course;
     Node* next;
-    Node(const std::string &name, const Course &course){
+    Node(const std::string &name, const CourseStack &course){
         this->name = name;
         this->course = course;
         this->next = nullptr;
     }
-    Node(): name(""), course(Course()), next(nullptr){}
+    Node(): name(""), course(CourseStack()), next(nullptr){}
 };
 
 class List
@@ -28,7 +28,7 @@ public:
     };
 
     void Push(std::string name, std::string course_name) {
-        Node* node = new Node(name, Course(course_name));
+        Node* node = new Node(name, CourseStack(course_name));
         printf("course node %s - %s added \n", name.c_str(), course_name.c_str());
         node->next = m_head;
         m_head = node;
