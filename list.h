@@ -32,20 +32,24 @@ public:
         printf("course node %s - %s added \n", name.c_str(), course_name.c_str());
         node->next = m_head;
         m_head = node;
+
     }
 
     void Delete(const std::string &student, const std::string &course) {
         Node* temp = m_head;
+        bool found = false;
         while (temp != NULL)
         {
             if (temp->name == course){
                 printf("removing %s ...\n", student.c_str());
                 temp->course.RemoveStudent(student);
+                found = true;
             }
  
             temp = temp->next;
         }
-        
+        if (!found)
+            printf("Student %s not found in %s \n", student.c_str(), course.c_str());
     }
 
     void Print() const {
@@ -59,17 +63,34 @@ public:
 
     void ApplyToCourse(std::string student, std::string course_name) {
         Node* temp = m_head;
+        bool found = false;
         while (temp != NULL)
         {
             if (temp->name == course_name)
+            {
                 temp->course.ApplyToCourse(student);
+                found = true;
+                break;
+            }
  
             temp = temp->next;
         }
-        
-        
+        if (!found)
+            printf("Course %s does not exist for %s to apply \n", course_name.c_str(), student.c_str());
     }
-    ~List() {};
+    ~List()
+    {
+        Node* current = m_head;
+        Node* next = nullptr;
+        while (current != NULL)
+        {
+            next = current->next;
+            delete current;
+            current = next;
+        }
+        printf("clearing DB \n");
+        
+    };
 
 
 

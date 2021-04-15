@@ -1,32 +1,97 @@
 #include "list.h"
+#include <iostream>
+#include <sstream>
+
+
+enum COMMAND {
+    APPLY,
+    DELETE,
+    ERROR,
+    PRINT,
+    CLOSE
+};
+COMMAND GetCommand(const std::string &input)
+{
+
+    if (input == "apply")
+    {
+        return COMMAND::APPLY;
+    }
+    else if (input == "remove")
+    {
+        return COMMAND::DELETE;
+    }
+    else if (input == "print")
+    {
+        return COMMAND::PRINT;
+    }
+    else if (input == "close")
+    {
+        return COMMAND::CLOSE;
+    }
+    else
+        return COMMAND::ERROR; 
+}
 
 int main(int argc, char** argv)
 {
+    bool open = true;
     List list;  
- 
-    std::string name = "MATTE";
-    std::string name2 = "POGRAMERING";
+    std::string name = "M0001";
+    std::string name2 = "D0001";
+    list.Push(name, name);
+    list.Push(name2, name2);
 
-    list.Push(name, "M0001");
-    list.Push(name2, "D0001");
+    while (open)
+    {
+        
+        std::string input;
+        std::getline(std::cin, input);
+        std::istringstream stream(input);
+        std::string command = input.substr(0, input.find(" "));
 
-    list.ApplyToCourse("bert", "MATTE");
-    list.ApplyToCourse("greger", "MATTE");
-    list.ApplyToCourse("adolf", "MATTE");
-    list.ApplyToCourse("adolf1", "MATTE");
-    list.ApplyToCourse("adolf2", "MATTE");
-    list.ApplyToCourse("adolf3", "MATTE");
-    list.ApplyToCourse("adolf4", "MATTE");
-    list.ApplyToCourse("adolf5", "MATTE");
-    list.ApplyToCourse("adolf6", "MATTE");
-    list.ApplyToCourse("adolf7", "MATTE");
-    list.ApplyToCourse("bert", "POGRAMERING");
-    list.ApplyToCourse("per", "MATTE");
+        COMMAND usercommand = GetCommand(command);
+        switch (usercommand)
+        {
+        case COMMAND::APPLY:
+        {
+            list.Print();
+            std::cout << "Course: \n";
+            std::getline(std::cin, input);
+            std::string course = input;
+            std::cout << "Student Name: \n";
+            std::getline(std::cin, input);
+            std::string student = input;
+            list.ApplyToCourse(student, course);
+            break;
+        }
 
-    list.Print();
-    printf("------------------------------------- \n");
-    list.Delete("adolf", "MATTE");
-    list.Print();
+        case COMMAND::DELETE:
+        {
+            list.Print();
+            std::cout << "Course: \n";
+            std::getline(std::cin, input);
+            std::string course = input;
+            std::cout << "Student Name: \n";
+            std::getline(std::cin, input);
+            std::string student = input;
+            list.Delete(student, course);
+            break;
+        }
+        
+        case COMMAND::PRINT:
+            list.Print();
+            break;
+
+        case COMMAND::CLOSE:
+            open = false;
+            break;
+
+        default:
+            break;
+        }
+    }
+    
 
     return 0;
 }
