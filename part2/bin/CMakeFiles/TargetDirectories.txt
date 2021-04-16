@@ -1,0 +1,3 @@
+/home/ludlin-8/Documents/gitrepos/DOA/D0041D-lab1/part2/bin/CMakeFiles/rebuild_cache.dir
+/home/ludlin-8/Documents/gitrepos/DOA/D0041D-lab1/part2/bin/CMakeFiles/edit_cache.dir
+/home/ludlin-8/Documents/gitrepos/DOA/D0041D-lab1/part2/bin/CMakeFiles/palindrome.dir
