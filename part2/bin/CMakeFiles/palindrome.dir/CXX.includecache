@@ -7,10 +7,16 @@
 #IncludeRegexTransform: 
 
 /home/ludlin-8/Documents/gitrepos/DOA/D0041D-lab1/part2/main.cc
+algorithm
+-
+string
+-
+cctype
+-
 chrono
 -
 iostream
 -
-string.h
-/home/ludlin-8/Documents/gitrepos/DOA/D0041D-lab1/part2/string.h
+stack
+-
 
