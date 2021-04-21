@@ -4,38 +4,52 @@
 #include <chrono>
 #include <iostream>
 #include <stack>
+#include <queue>
 
-bool IsPalindrome(std::string input){
+bool IsPalindromeQueue(std::string input){
+    std::queue<char> queue;
+    input.erase(std::remove(input.begin(), input.end(), ' '), input.end());
+    int last_char = input.size() - 1;
+    for (size_t i = 0; i < input.size(); i++)
+    {
+        queue.push(input[last_char - i]);
+    }
+
+    for (size_t i = 0; i < queue.size(); i++)
+    {
+        if (queue.front() != input[i])
+            return false;
+        
+        queue.pop();
+    }
+    return true;
+}
+
+bool IsPalindromeStack(std::string input){
 
     std::stack<char> stack1;
     std::stack<char> stack2;
-    int last_char = input.size() - 1;
 
-    std::cout << "before : " << input << std::endl;
-    std::cout << "after : " << input << std::endl;
+    input.erase(std::remove(input.begin(), input.end(), ' '), input.end());
     
+    
+    int last_char = input.size() - 1;
 
     for (size_t i = 0; i < input.size(); i++)
     {
         stack1.push(input[i]);
-        std::cout << input[last_char - i] << std::endl;
         stack2.push(input[last_char - i]);
     }
 
     while (!stack1.empty() && !stack2.empty())
     {
-        printf("stack 1 | 2 top: %d | %d \n", stack1.top(), stack2.top());
         if (stack1.top() != stack2.top())
             return false;
         
         stack1.pop();
         stack2.pop();
     }
-    
-    
 
-    
-    
     return true;
 }
 
@@ -44,12 +58,36 @@ int main(int argc, char** argv)
     std::string input;
     printf("input: ");
     std::getline(std::cin, input);
-    bool correct = IsPalindrome(input);
+
+
+
+    auto time1 = std::chrono::high_resolution_clock::now();
+    bool correct_stack = IsPalindromeStack(input);
+    auto time2 = std::chrono::high_resolution_clock::now();
+    std::chrono::duration<float> elapse1 = time2 - time1;
+
+
+
+    auto time3 = std::chrono::high_resolution_clock::now();
+    bool correct_queue = IsPalindromeQueue(input);
+    auto time4 = std::chrono::high_resolution_clock::now();
+    std::chrono::duration<float> elapse2 = time4 - time3;
     //printf("input lenght %ld \n", strlen(input));
-    if (correct)
-        printf("%s is a palindrome! \n", input.c_str());
+    if (correct_stack)
+        printf("[stack] %s is a palindrome! \n", input.c_str());
     else
-        printf("%s is not a palindrome! \n", input.c_str());
+        printf("[stack] %s is not a palindrome! /s \n", input.c_str());
+        
+    printf("Operation complete \t time: %f s \n",elapse1.count()); 
+
+    if (correct_queue)
+        printf("[queue] %s is a palindrome! \n", input.c_str());
+    else
+        printf("[queue] %s is not a palindrome! /s \n", input.c_str());
+
+    printf("Operation complete \t time: %f s \n", elapse2.count()); 
+
+
 
     return 1;
 
