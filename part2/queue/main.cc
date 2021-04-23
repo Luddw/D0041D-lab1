@@ -5,12 +5,10 @@
 #include <iostream>
 #include <queue>
 
-bool IsPalindromeQueue(std::string input){
+bool IsPalindromeQueue(std::string &input){
     std::queue<char> queue;
     std::queue<char> queue2;
-
     int last_char = input.size() - 1;
-
     for (size_t i = 0; i < input.size(); i++)
     {
         queue.push(input[i]);
@@ -31,27 +29,36 @@ bool IsPalindromeQueue(std::string input){
 
 int main(int argc, char** argv)
 {
+    bool correct_queue = false;
     std::string input;
     printf("input: ");
     std::getline(std::cin, input);
+    std::string original_word = input;
     input.erase(std::remove(input.begin(), input.end(), ' '), input.end());
     for (auto& c : input)
     {
         c = tolower(c);
     }
-    bool correct_queue = false;
 
     
     auto time1 = std::chrono::high_resolution_clock::now();
-    correct_queue = IsPalindromeQueue(input);
+
+    for (size_t i = 0; i < 100000; i++)
+    {
+        correct_queue = IsPalindromeQueue(input);
+    }
     auto time2 = std::chrono::high_resolution_clock::now();
     std::chrono::duration<float> elapse = time2 - time1;
     
+    
+    
+    
+    
 
     if (correct_queue)
-        printf("[queue] %s is a palindrome! \n", input.c_str());
+        printf("[queue] %s is a palindrome! \n", original_word.c_str());
     else
-        printf("[queue] %s is not a palindrome! /s \n", input.c_str());
+        printf("[queue] %s is not a palindrome! /s \n", original_word.c_str());
 
     printf("Operation complete \t time: %f s \n", elapse.count()); 
 
